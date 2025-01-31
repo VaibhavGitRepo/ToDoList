@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct HomeView: View {
-    @EnvironmentObject var listViewModel: ListViewModel
+    @EnvironmentObject var taskviewModel: TaskViewModel
     
     var body: some View {
         NavigationView{
@@ -18,9 +18,9 @@ struct HomeView: View {
                     taskTitle
                     Divider()
                         .frame(height: 1)
-                        ForEach(listViewModel.items){item in
-                            NavigationLink(destination: TaskDetailView(task: item)) {
-                                ListRowView(data: item)
+                    ForEach(taskviewModel.tasks){task in
+                        NavigationLink(destination: TaskDetailView(task: task)) {
+                            ListRowView(data: task)
                                     .foregroundColor(.primary)
                             }
                         }
@@ -30,6 +30,9 @@ struct HomeView: View {
             .padding(.vertical)
             .padding(.horizontal)
             .toolbarRole(.editor)
+        }
+        .onAppear{
+            taskviewModel.fetchTasks()
         }
     }
     private var profileView: some View{
@@ -58,6 +61,7 @@ struct HomeView: View {
                 .fontWeight(.bold)
                 .foregroundColor(.gray)
             Spacer()
+            
             NavigationLink{
                 NewTaskView()
             }label: {
@@ -71,5 +75,5 @@ struct HomeView: View {
 
 #Preview {
     HomeView()
-        .environmentObject(ListViewModel())
+        .environmentObject(TaskViewModel())
 }

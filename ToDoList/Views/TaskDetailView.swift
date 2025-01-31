@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct TaskDetailView: View {
-    @EnvironmentObject var taskViewModel: ListViewModel
+    @EnvironmentObject var taskviewModel: TaskViewModel
     @State private var editedTitle: String
     @State private var editedDescription: String
     @Environment(\.dismiss) var dismiss
@@ -52,7 +52,7 @@ struct TaskDetailView: View {
             }
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button("Save") {
-                    taskViewModel.updateTask(id: task.id, newTitle: editedTitle, newDescription: editedDescription)
+                    taskviewModel.updateTask(taskId: task.id!, newTitle: editedTitle, newDescription: editedDescription)
                     dismiss()
                 }
             }

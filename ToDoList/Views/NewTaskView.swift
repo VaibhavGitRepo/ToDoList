@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct NewTaskView: View {
-    @EnvironmentObject var listViewModel: ListViewModel
+    @EnvironmentObject var taskviewModel: TaskViewModel
     @Environment(\.dismiss) var dismiss
     @State private var title: String = ""
     @State private var bodyText: String = ""
@@ -32,7 +32,7 @@ struct NewTaskView: View {
             .background(Color(.systemBackground))
         }
         .padding(.top)
-        .navigationTitle("New Note")
+        .navigationTitle("New Task")
         .navigationBarBackButtonHidden(true)
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
@@ -44,7 +44,7 @@ struct NewTaskView: View {
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button("Save") {
                     if !title.isEmpty {
-                        listViewModel.addTask(title: title,description: bodyText)
+                        taskviewModel.addTask(title: title,description: bodyText)
                         title = ""
                         bodyText = ""
                         dismiss()
@@ -57,5 +57,5 @@ struct NewTaskView: View {
 
 #Preview {
     NewTaskView()
-        .environmentObject(ListViewModel())
+        .environmentObject(TaskViewModel())
 }

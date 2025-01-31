@@ -74,6 +74,7 @@ struct LoginView: View {
                     footer
                 }
             }
+            .scrollIndicators(.hidden)
             .ignoresSafeArea()
             .padding(.horizontal)
             .padding(.vertical, 8)

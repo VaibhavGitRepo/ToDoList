@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ListRowView: View {
-    @EnvironmentObject private var listViewModel: ListViewModel
+    @EnvironmentObject private var taskviewModel: TaskViewModel
     let data: Tasks
     var body: some View {
         RoundedRectangle(cornerRadius: 5)
@@ -28,7 +28,15 @@ struct ListRowView: View {
                     }
                     Spacer()
                     Button{
-                        listViewModel.toggleCompletion(for: data)
+                        taskviewModel.deleteTask(taskId: data.id!)
+                    }label: {
+                        Image(systemName: "trash")
+                            .resizable()
+                            .frame(width:25,height: 25)
+                            .foregroundColor(.blue)
+                    }
+                    Button{
+                        taskviewModel.updateTaskCompletion(task: data)
                     }label:{
                         Image(systemName: data.isCompleted ? "checkmark.circle.fill" : "circle")
                             .resizable()

@@ -7,22 +7,21 @@
 
 import SwiftUI
 import UIKit
+import Firebase
 import FirebaseCore
 
 
 @main
-struct SmartUtilityAppApp: App {
-    @StateObject private var listViewModel = ListViewModel()
-    @Environment(\.scenePhase) private var scenePhase
+struct ToDoListAppApp: App {
+    @StateObject private var taskviewModel = TaskViewModel()
+    
+    init(){
+        FirebaseApp.configure()
+    }
     var body: some Scene {
         WindowGroup {
             ContentView()
-                .environmentObject(listViewModel)
-                .onChange(of: scenePhase) { newScenePhase in
-                    if newScenePhase == .background {
-                        listViewModel.saveTasks()
-                    }
-                }
+                .environmentObject(TaskViewModel())
         }
     }
 }
